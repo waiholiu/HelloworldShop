@@ -1,0 +1,45 @@
+@model HelloworldShop.Web.ViewModels.CartViewModel
+@{
+    ViewData["Title"] = "Demo checkout";
+}
+
+<section class="page-shell">
+    <div class="container">
+        <p class="eyebrow">Final step</p>
+        <h1 class="page-title">Demo checkout</h1>
+        <div class="checkout-grid">
+            <div>
+                <div class="notice-card" role="note">
+                    <h2>This is a simulation</h2>
+                    <p>
+                        No real payment is collected, no personal details are requested, and no products
+                        will be shipped. Placing the order only creates a demonstration record.
+                    </p>
+                </div>
+                <div class="checkout-copy">
+                    <h2>What happens next?</h2>
+                    <ul>
+                        <li>Your sample order and item snapshot are saved.</li>
+                        <li>Your anonymous demo bag is cleared.</li>
+                        <li>You receive an on-screen demo reference number.</li>
+                    </ul>
+                </div>
+                <form asp-action="PlaceOrder" method="post">
+                    <button class="btn btn-primary" type="submit">Place demo order</button>
+                    <a class="btn btn-outline-dark ms-2" asp-controller="Cart" asp-action="Index">Back to bag</a>
+                </form>
+            </div>
+            <aside class="summary-card">
+                <h2>Demo order</h2>
+                @foreach (var item in Model.Items)
+                {
+                    <div class="summary-row">
+                        <span>@item.Name × @item.Quantity</span>
+                        <span>@item.LineTotal.ToString("C")</span>
+                    </div>
+                }
+                <div class="summary-row summary-total"><span>Total</span><span>@Model.Total.ToString("C")</span></div>
+            </aside>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,18 @@
+name: helloworldshop
+metadata:
+  template: azd-init
+
+services:
+  web:
+    project: ./src/HelloworldShop.Web
+    language: dotnet
+    host: appservice
+
+hooks:
+  postprovision:
+    posix:
+      shell: sh
+      run: ./scripts/grant-sql-access.sh
+    windows:
+      shell: pwsh
+      run: ./scripts/grant-sql-access.ps1

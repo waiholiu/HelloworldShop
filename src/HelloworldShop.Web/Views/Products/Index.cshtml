@@ -1,0 +1,64 @@
+@model IReadOnlyList<HelloworldShop.Web.Models.Product>
+@{
+    ViewData["Title"] = "Modern sandals";
+}
+
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <p class="eyebrow">The warm weather edit</p>
+            <h1>Good days start from the ground up.</h1>
+            <p class="hero-copy">
+                Considered sandals for city strolls, salty swims and every slow moment between.
+                Designed for comfort, made for wherever the day wanders.
+            </p>
+            <div class="hero-chips" aria-label="Collection qualities">
+                <span>All-day comfort</span>
+                <span>Thoughtful materials</span>
+                <span>Australian spirit</span>
+            </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+            <img src="~/images/hero-sandal.svg" alt="" />
+        </div>
+    </div>
+</section>
+
+<section class="collection" id="collection">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Meet the collection</p>
+                <h2>Find your everyday pair</h2>
+            </div>
+            <p>Six distinctive styles, each with the same easygoing approach to comfort.</p>
+        </div>
+
+        <div class="product-grid">
+            @foreach (var product in Model)
+            {
+                <article class="product-card">
+                    <a class="product-image-wrap" asp-action="Details" asp-route-slug="@product.Slug">
+                        <img src="@product.ImageUrl" alt="@product.Name sandal in @product.Color" loading="lazy" />
+                    </a>
+                    <div class="product-meta">
+                        <div>
+                            <h3><a asp-action="Details" asp-route-slug="@product.Slug">@product.Name</a></h3>
+                            <p class="product-style">@product.Style · @product.Color</p>
+                        </div>
+                        <span class="price">@product.Price.ToString("C0")</span>
+                    </div>
+                    <div class="product-actions">
+                        <a class="btn btn-outline-dark btn-sm" asp-action="Details" asp-route-slug="@product.Slug">View style</a>
+                        <form asp-controller="Cart" asp-action="Add" method="post">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <input type="hidden" name="quantity" value="1" />
+                            <input type="hidden" name="returnUrl" value="@Context.Request.Path#collection" />
+                            <button class="btn btn-primary btn-sm" type="submit">Quick add</button>
+                        </form>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

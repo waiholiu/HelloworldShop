@@ -1,0 +1,73 @@
+@model HelloworldShop.Web.ViewModels.CartViewModel
+@{
+    ViewData["Title"] = "Your bag";
+}
+
+<section class="page-shell">
+    <div class="container">
+        <p class="eyebrow">Your selection</p>
+        <h1 class="page-title">Your bag</h1>
+
+        @if (TempData["CartMessage"] is string message)
+        {
+            <div class="alert flash-message" role="status">@message</div>
+        }
+
+        @if (Model.Items.Count == 0)
+        {
+            <div class="empty-state">
+                <h2>Your bag is ready for an adventure</h2>
+                <p>Choose a pair and it will be waiting here.</p>
+                <a class="btn btn-primary" asp-controller="Products" asp-action="Index">Explore sandals</a>
+            </div>
+        }
+        else
+        {
+            <div class="cart-layout">
+                <div class="cart-list">
+                    @foreach (var item in Model.Items)
+                    {
+                        <article class="cart-item">
+                            <a asp-controller="Products" asp-action="Details" asp-route-slug="@item.Slug">
+                                <img src="@item.ImageUrl" alt="@item.Name sandal" />
+                            </a>
+                            <div>
+                                <h2>
+                                    <a asp-controller="Products" asp-action="Details" asp-route-slug="@item.Slug">@item.Name</a>
+                                </h2>
+                                <span>@item.UnitPrice.ToString("C") each</span>
+                                <div class="cart-controls">
+                                    <form asp-action="Update" method="post">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <label class="visually-hidden" for="qty-@item.ProductId">Quantity</label>
+                                        <select class="form-select form-select-sm" id="qty-@item.ProductId" name="quantity"
+                                                onchange="this.form.submit()">
+                                            @for (var quantity = 1; quantity <= 10; quantity++)
+                                            {
+                                                <option value="@quantity" selected="@(quantity == item.Quantity)">@quantity</option>
+                                            }
+                                        </select>
+                                    </form>
+                                    <form asp-action="Update" method="post">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <input type="hidden" name="quantity" value="0" />
+                                        <button class="link-button" type="submit">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <span class="line-total">@item.LineTotal.ToString("C")</span>
+                        </article>
+                    }
+                </div>
+                <aside class="summary-card">
+                    <h2>Order summary</h2>
+                    <div class="summary-row"><span>Items (@Model.ItemCount)</span><span>@Model.Total.ToString("C")</span></div>
+                    <div class="summary-row"><span>Demo delivery</span><span>Free</span></div>
+                    <div class="summary-row summary-total"><span>Total</span><span>@Model.Total.ToString("C")</span></div>
+                    <a class="btn btn-primary" asp-controller="Checkout" asp-action="Index">Continue to demo checkout</a>
+                    <p class="fine-print">No payment details are requested or processed.</p>
+                </aside>
+            </div>
+        }
+    </div>
+</section>

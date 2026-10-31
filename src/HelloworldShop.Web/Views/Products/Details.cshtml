@@ -1,0 +1,38 @@
+@model HelloworldShop.Web.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="detail-section">
+    <div class="container">
+        <a class="back-link" asp-action="Index">← Back to all sandals</a>
+        <div class="detail-grid">
+            <div class="detail-image">
+                <img src="@Model.ImageUrl" alt="@Model.Name sandal in @Model.Color" />
+            </div>
+            <div class="detail-content">
+                <p class="eyebrow">@Model.Style collection</p>
+                <h1>@Model.Name</h1>
+                <p class="detail-price">@Model.Price.ToString("C")</p>
+                <p class="detail-description">@Model.Description</p>
+                <dl class="detail-specs">
+                    <div>
+                        <dt>Colour</dt>
+                        <dd>@Model.Color</dd>
+                    </div>
+                    <div>
+                        <dt>Style</dt>
+                        <dd>@Model.Style</dd>
+                    </div>
+                </dl>
+                <form class="add-row" asp-controller="Cart" asp-action="Add" method="post">
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <label class="visually-hidden" for="quantity">Quantity</label>
+                    <input class="quantity-input" id="quantity" name="quantity" type="number" value="1" min="1" max="10" />
+                    <button class="btn btn-primary" type="submit">Add to your bag</button>
+                </form>
+                <p class="fine-print text-start">Sample product only. No real purchase or delivery will occur.</p>
+            </div>
+        </div>
+    </div>
+</section>

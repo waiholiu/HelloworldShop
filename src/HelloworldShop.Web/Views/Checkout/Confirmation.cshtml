@@ -1,0 +1,28 @@
+@model HelloworldShop.Web.ViewModels.OrderConfirmationViewModel
+@{
+    ViewData["Title"] = "Demo order confirmed";
+}
+
+<section class="page-shell">
+    <div class="container confirmation">
+        <div class="success-mark" aria-hidden="true">✓</div>
+        <p class="eyebrow">Demo order saved</p>
+        <h1>That was a successful simulation.</h1>
+        <p class="confirmation-lead">
+            No payment was taken and nothing will be delivered. This reference confirms only that
+            the sample order was stored successfully.
+        </p>
+        <span class="order-reference">@Model.OrderNumber</span>
+        <div class="confirmation-card">
+            @foreach (var item in Model.Items)
+            {
+                <div class="summary-row">
+                    <span>@item.Name × @item.Quantity</span>
+                    <span>@item.LineTotal.ToString("C")</span>
+                </div>
+            }
+            <div class="summary-row summary-total"><span>Demo total</span><span>@Model.Total.ToString("C")</span></div>
+        </div>
+        <a class="btn btn-primary" asp-controller="Products" asp-action="Index">Return to the collection</a>
+    </div>
+</section>

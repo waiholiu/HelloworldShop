@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#18332d" />
+    <title>@ViewData["Title"] · Sol &amp; Sole</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Products" asp-action="Index">
+                    <span class="brand-mark" aria-hidden="true">S</span>
+                    <span>Sol &amp; Sole</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
+                        aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="siteNav">
+                    <ul class="navbar-nav ms-auto align-items-md-center gap-md-2">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Products" asp-action="Index">Shop sandals</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bag-link" asp-controller="Cart" asp-action="Index">
+                                <span aria-hidden="true">◌</span> Your bag
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <a class="footer-brand" asp-controller="Products" asp-action="Index">Sol &amp; Sole</a>
+                <p>Thoughtful sandals for unhurried days.</p>
+            </div>
+            <div class="demo-note">
+                <strong>Sample store</strong>
+                <span>No real payment or fulfilment takes place.</span>
+            </div>
+            <div class="footer-links">
+                <a asp-controller="Products" asp-action="Index">Collection</a>
+                <a href="/health">System health</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
